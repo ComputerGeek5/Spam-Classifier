@@ -1,10 +1,38 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'inbox',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import ('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
+      }
+    ]
+  },
+  {
+    path: '**',
+    redirectTo: 'inbox'
+  }
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    RouterModule.forRoot(routes)
+  ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
