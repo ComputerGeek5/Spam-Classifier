@@ -1,6 +1,6 @@
-package com.example.spamclassifier.controller.api;
+package com.example.spamclassifier.controller;
 
-import com.example.spamclassifier.controller.api.response.BodyResponse;
+import com.example.spamclassifier.api.response.BodyResponse;
 import com.example.spamclassifier.service.abst.MailService;
 import com.example.spamclassifier.service.abst.UserService;
 import com.example.spamclassifier.util.annotation.BaseURL;

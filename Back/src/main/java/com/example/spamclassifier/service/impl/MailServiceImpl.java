@@ -1,0 +1,38 @@
+package com.example.spamclassifier.service.impl;
+
+import com.example.spamclassifier.dto.MailDTO;
+import com.example.spamclassifier.mapper.MailMapper;
+import com.example.spamclassifier.model.Mail;
+import com.example.spamclassifier.repository.MailRepository;
+import com.example.spamclassifier.service.abst.MailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MailServiceImpl implements MailService {
+
+    private final MailRepository mailRepository;
+
+    @Autowired
+    public MailServiceImpl(MailRepository mailRepository) {
+        this.mailRepository = mailRepository;
+    }
+
+    @Override
+    public MailDTO find(Long id) {
+        return mailRepository.findById(id)
+                .map(MailMapper.INSTANCE::toDTO)
+                .orElse(null);
+    }
+
+    @Override
+    public MailDTO save(MailDTO mailDTO) {
+        Mail saved = mailRepository.save(MailMapper.INSTANCE.toEntity(mailDTO));
+        return MailMapper.INSTANCE.toDTO(saved);
+    }
+
+    @Override
+    public void delete(Long id) {
+        mailRepository.deleteById(id);
+    }
+}

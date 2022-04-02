@@ -1,13 +1,12 @@
 package com.example.spamclassifier.dto;
 
-import com.example.spamclassifier.model.Mail;
-import com.example.spamclassifier.model.Role;
+import com.example.spamclassifier.enumerator.Gender;
+import com.example.spamclassifier.enumerator.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,11 +21,11 @@ public class UserDTO {
     private String password;
     private String firstName;
     private String lastName;
-    private String gender;
-    private LocalDate date;
+    private Gender gender;
+    private LocalDate birthday;
     private String occupation;
     private String location;
+    private Role role;
     private List<MailDTO> inbox;
     private List<MailDTO> sent;
-    private RoleDTO role;
 }

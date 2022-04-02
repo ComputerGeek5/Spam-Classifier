@@ -4,12 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inbox',
-    pathMatch: 'full'
+    redirectTo: 'login',
+    pathMatch: 'full',
   },
   {
     path: '',
@@ -22,8 +23,14 @@ const routes: Routes = [
     ]
   },
   {
-    path: '**',
-    redirectTo: 'inbox'
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import ('./layouts/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule)
+      }
+    ]
   }
 ];
 

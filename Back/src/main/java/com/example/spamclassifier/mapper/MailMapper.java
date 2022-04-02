@@ -5,7 +5,7 @@ import com.example.spamclassifier.model.Mail;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface MailMapper extends ModelMapper<Mail, MailDTO> {
     MailMapper INSTANCE = Mappers.getMapper(MailMapper.class);
 }

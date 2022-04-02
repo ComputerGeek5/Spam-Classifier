@@ -1,6 +1,10 @@
 package com.example.spamclassifier.model;
 
+import com.example.spamclassifier.enumerator.Gender;
+import com.example.spamclassifier.enumerator.Role;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +13,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tbl_user")
 public class User {
@@ -17,23 +23,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "gender")
-    private String gender;
+    @Column(name = "gender", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
-    @Column(name = "birthday")
-    private LocalDate date;
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
 
     @Column(name = "occupation")
     private String occupation;
@@ -41,13 +48,13 @@ public class User {
     @Column(name = "location")
     private String location;
 
+    @Column(name = "role", nullable = false, updatable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @OneToMany(mappedBy = "receiver")
     private List<Mail> inbox;
 
     @OneToMany(mappedBy = "sender")
     private List<Mail> sent;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id")
-    private Role role;
 }
