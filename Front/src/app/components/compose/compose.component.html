@@ -15,16 +15,16 @@
 
       <form [formGroup]="form" (ngSubmit)="compose()" #myForm="ngForm">
         <div class="modal-body mx-3">
-          <div class="md-form mb-5">
-            <mdb-icon fas icon="tag" class="prefix grey-text"></mdb-icon>
-            <label for="receiver" class="ml-2">Receiver</label>
-            <select type="text" id="receiver" class="form-select" mdbInput mdbValidate formControlName="receiver">
-              <option *ngFor="let receiver of users" value="{{ receiver.id }}">{{ receiver.firstName }}</option>
-            </select>
-            <h6 *ngIf="receiver.invalid && (receiver.dirty || receiver.touched)" class="error">
-              Input Invalid
-            </h6>
-          </div>
+<!--          <div class="md-form mb-5">-->
+<!--            <mdb-icon fas icon="tag" class="prefix grey-text"></mdb-icon>-->
+<!--            <label for="receiver" class="ml-2">Receiver</label>-->
+<!--            <select type="text" id="receiver" class="form-select" mdbInput mdbValidate formControlName="receiver">-->
+<!--              <option *ngFor="let receiver of users" value="{{ receiver.id }}">{{ receiver.firstName }}</option>-->
+<!--            </select>-->
+<!--            <h6 *ngIf="receiver.invalid && (receiver.dirty || receiver.touched)" class="error">-->
+<!--              Input Invalid-->
+<!--            </h6>-->
+<!--          </div>-->
 
           <div class="md-form mb-5">
             <mdb-icon fas icon="tag" class="prefix grey-text"></mdb-icon>
