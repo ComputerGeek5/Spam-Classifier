@@ -1,4 +1,4 @@
-package com.example.spamclassifier.api.response;
+package com.example.spamclassifier.api.response.resource;
 import com.example.spamclassifier.dto.UserDTO;
 import com.example.spamclassifier.enumerator.Gender;
 import com.example.spamclassifier.enumerator.Role;
@@ -25,10 +25,7 @@ public class UserResponse {
     private LocalDate birthday;
     private String occupation;
     private String location;
-
     private Role role;
-    private List<MailResponse> inbox;
-    private List<MailResponse> sent;
 
     public static class UserResponseBuilder {
 

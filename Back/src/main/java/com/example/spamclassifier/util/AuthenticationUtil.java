@@ -26,9 +26,9 @@ public class AuthenticationUtil {
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         } catch (DisabledException e) {
-            throw new CustomException("User Inactive", HttpStatus.FORBIDDEN);
+            throw new CustomException("User Inactive", HttpStatus.FORBIDDEN.value());
         } catch (BadCredentialsException e) {
-            throw new CustomException("Invalid Credentials", HttpStatus.BAD_REQUEST);
+            throw new CustomException("Invalid Credentials", HttpStatus.BAD_REQUEST.value());
         }
     }
 }

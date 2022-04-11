@@ -11,11 +11,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ComponentsModule } from './components/components.module';
-import {AuthService} from './security/auth/auth.service';
-import {AuthGuard} from './security/guard/auth.guard';
 import {HttpInterceptorService} from './security/interceptor/http-interceptor.service';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import {AuthLayoutModule} from './layouts/auth-layout/auth-layout.module';
+import {UserService} from './service/user/user.service';
+import {MailService} from './service/mail/mail.service';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import {AuthLayoutModule} from './layouts/auth-layout/auth-layout.module';
         RouterModule,
         AppRoutingModule,
         ToastrModule.forRoot(),
+        MDBBootstrapModule.forRoot(),
         AuthLayoutModule
     ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
@@ -36,8 +38,8 @@ import {AuthLayoutModule} from './layouts/auth-layout/auth-layout.module';
       useClass: HttpInterceptorService,
       multi: true
     },
-    AuthService,
-    AuthGuard
+    UserService,
+    MailService
   ],
   bootstrap: [AppComponent]
 })

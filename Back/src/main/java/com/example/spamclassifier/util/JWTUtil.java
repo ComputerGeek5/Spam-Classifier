@@ -49,15 +49,15 @@ public class JWTUtil {
         try {
             Jwts.parser().parseClaimsJwt(token);
         } catch (SignatureException ex) {
-            throw new CustomException("Invalid JWT signature", HttpStatus.BAD_REQUEST);
+            throw new CustomException("Invalid JWT signature", HttpStatus.BAD_REQUEST.value());
         } catch (MalformedJwtException ex) {
-            throw new CustomException("Invalid JWT token", HttpStatus.BAD_REQUEST);
+            throw new CustomException("Invalid JWT token", HttpStatus.BAD_REQUEST.value());
         } catch (ExpiredJwtException ex) {
-            throw new CustomException("Expired JWT token", HttpStatus.BAD_REQUEST);
+            throw new CustomException("Expired JWT token", HttpStatus.BAD_REQUEST.value());
         } catch (UnsupportedJwtException ex) {
-            throw new CustomException("Unsupported JWT token", HttpStatus.BAD_REQUEST);
+            throw new CustomException("Unsupported JWT token", HttpStatus.BAD_REQUEST.value());
         } catch (IllegalArgumentException ex) {
-            throw new CustomException("JWT claims string is empty.", HttpStatus.BAD_REQUEST);
+            throw new CustomException("JWT claims string is empty.", HttpStatus.BAD_REQUEST.value());
         }
     }
 }

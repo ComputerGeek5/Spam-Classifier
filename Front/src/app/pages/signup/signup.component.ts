@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {NavigationExtras, Router} from '@angular/router';
 import {AuthService} from '../../security/auth/auth.service';
 import {SignUpRequest} from '../../model/request/SignUpRequest';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -70,7 +70,7 @@ export class SignupComponent implements OnInit {
     signUpRequest.firstName = firstName;
     signUpRequest.lastName = lastName;
     signUpRequest.gender = gender;
-    // signUpRequest.birthday = birthday;
+    signUpRequest.birthday = birthday;
     signUpRequest.occupation = occupation;
     signUpRequest.location = location;
 
@@ -78,9 +78,17 @@ export class SignupComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log(response);
+
+          if (response.status != 200) {
+            this.error = response.message;
+          } else {
+            const navigationExtras: NavigationExtras = {state: {data: 'Sign Up Successful.'}};
+            this.router.navigate(['login'], navigationExtras);
+          }
         },
         (error) => {
-          this.error = error;
+          console.log(error);
+          this.error = error.message;
         }
       );
   }

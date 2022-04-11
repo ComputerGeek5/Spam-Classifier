@@ -3,48 +3,45 @@ package com.example.spamclassifier.controller;
 import com.example.spamclassifier.api.mapper.ComposeRequestMapper;
 import com.example.spamclassifier.api.request.ComposeRequest;
 import com.example.spamclassifier.api.response.BodyResponse;
-import com.example.spamclassifier.api.response.InboxResponse;
 import com.example.spamclassifier.api.response.resource.MailResponse;
 import com.example.spamclassifier.dto.MailDTO;
-import com.example.spamclassifier.dto.UserDTO;
 import com.example.spamclassifier.service.abst.MailService;
-import com.example.spamclassifier.service.abst.UserService;
 import com.example.spamclassifier.util.annotation.BaseURL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-@BaseURL
-@RestController
 @Slf4j
-public class InboxController {
+@RestController
+@BaseURL
+public class MailController {
 
-    private final UserService userService;
     private final MailService mailService;
 
     @Autowired
-    public InboxController(UserService userService, MailService mailService) {
-        this.userService = userService;
+    public MailController(MailService mailService) {
         this.mailService = mailService;
     }
 
-    @GetMapping(value = "/inbox/{userId}", produces = "application/json")
+    @PostMapping(value = "/compose", consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public BodyResponse getReceivedMails(@PathVariable(value = "userId") Long userId) {
+    public BodyResponse compose(@RequestBody ComposeRequest composeRequest) {
         BodyResponse response;
 
         try {
-            UserDTO receiver = userService.find(userId);
-            List<MailDTO> mails = mailService.findAllByReceiverOrderByCreatedAtDesc(receiver);
-            InboxResponse inboxResponse = InboxResponse.builder()
-                    .mails(mails)
+            MailDTO mail = ComposeRequestMapper.INSTANCE.toDTO(composeRequest);
+            mail = mailService.save(mail);
+            MailResponse mailResponse = MailResponse.builder()
+                    .fromDTO(mail)
                     .build();
 
-            response = new BodyResponse(inboxResponse)
-                    .message("Collected inbox successfully.")
+            response = new BodyResponse(mailResponse)
+                    .message("Mail sent successfully.")
                     .status(HttpStatus.OK.value());
         } catch (Exception e) {
             log.error("", e);
@@ -53,6 +50,6 @@ public class InboxController {
                     .message("Something went wrong, please try again !");
         }
 
-       return response;
+        return response;
     }
 }

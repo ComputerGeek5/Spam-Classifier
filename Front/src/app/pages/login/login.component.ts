@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {AuthService} from '../../security/auth/auth.service';
 import {LogInRequest} from '../../model/request/LogInRequest';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class LoginComponent implements OnInit {
   error = '';
+  success = '';
 
   private isLoged = false;
   form = new FormGroup({
@@ -22,7 +24,14 @@ export class LoginComponent implements OnInit {
     ]),
   });
 
-  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService) {
+    let navigation = this.router.getCurrentNavigation();
+
+    if (navigation.extras !== null && navigation.extras.state !== undefined) {
+      let state = navigation.extras.state as {data: string};
+      this.success = state.data;
+    }
+  }
 
   ngOnInit() {
     this.isLoged = this.authService.isLogedIn();
@@ -40,10 +49,21 @@ export class LoginComponent implements OnInit {
     request.username = username;
     request.password = password;
 
-    this.authService.logIn(request).subscribe(() => {
-      this.router.navigate(['inbox']);
-    }, () => {
-      this.error = 'Something went wrong';
-    });
+    this.authService.logIn(request).subscribe(
+      (response) => {
+        console.log(response);
+
+        if (response.status != 200) {
+          this.error = response.message;
+        } else {
+          const navigationExtras: NavigationExtras = {state: {data: response.message}};
+          this.router.navigate(['inbox'], navigationExtras);
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.error = error;
+      }
+    );
   }
 }

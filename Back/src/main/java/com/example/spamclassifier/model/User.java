@@ -51,10 +51,4 @@ public class User {
     @Column(name = "role", nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @OneToMany(mappedBy = "receiver")
-    private List<Mail> inbox;
-
-    @OneToMany(mappedBy = "sender")
-    private List<Mail> sent;
 }

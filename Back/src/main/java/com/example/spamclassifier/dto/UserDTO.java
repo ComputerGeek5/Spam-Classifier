@@ -26,6 +26,4 @@ public class UserDTO {
     private String occupation;
     private String location;
     private Role role;
-    private List<MailDTO> inbox;
-    private List<MailDTO> sent;
 }

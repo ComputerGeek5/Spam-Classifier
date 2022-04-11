@@ -8,6 +8,9 @@ import com.example.spamclassifier.service.abst.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -41,5 +44,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username)
                 .map(UserMapper.INSTANCE::toDTO)
                 .orElse(null);
+    }
+
+    @Override
+    public List<UserDTO> findAll() {
+        return userRepository.findAll()
+                .stream()
+                .map(UserMapper.INSTANCE::toDTO)
+                .collect(Collectors.toList());
     }
 }

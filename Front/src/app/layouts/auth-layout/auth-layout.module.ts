@@ -10,6 +10,8 @@ import {SignupComponent} from '../../pages/signup/signup.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {AuthService} from '../../security/auth/auth.service';
+import {AuthGuard} from '../../security/guard/auth.guard';
 
 @NgModule({
   imports: [
@@ -26,6 +28,10 @@ import {MatInputModule} from '@angular/material/input';
   declarations: [
     LoginComponent,
     SignupComponent
-  ]
+  ],
+  providers: [
+    AuthService,
+    AuthGuard,
+  ],
 })
 export class AuthLayoutModule { }
