@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExample" (click)="frame.show()">
+<button type="button" class="btn btn-primary mb-5" data-toggle="modal" data-target="#basicExample" (click)="frame.show()">
   Compose
 </button>
 
@@ -15,34 +15,33 @@
 
       <form [formGroup]="form" (ngSubmit)="compose()" #myForm="ngForm">
         <div class="modal-body mx-3">
-<!--          <div class="md-form mb-5">-->
-<!--            <mdb-icon fas icon="tag" class="prefix grey-text"></mdb-icon>-->
-<!--            <label for="receiver" class="ml-2">Receiver</label>-->
-<!--            <select type="text" id="receiver" class="form-select" mdbInput mdbValidate formControlName="receiver">-->
-<!--              <option *ngFor="let receiver of users" value="{{ receiver.id }}">{{ receiver.firstName }}</option>-->
-<!--            </select>-->
-<!--            <h6 *ngIf="receiver.invalid && (receiver.dirty || receiver.touched)" class="error">-->
-<!--              Input Invalid-->
-<!--            </h6>-->
-<!--          </div>-->
 
+          <mdb-icon fas icon="tag" class="prefix grey-text mr-2"></mdb-icon><span>Receiver</span>
+          <div class="mb-5 col-md-12">
+            <select type="text" style="width: 100%;" id="receiver" class="form-select-lg" formControlName="receiver">
+              <option *ngFor="let receiver of users" value="{{ receiver.id }}">{{ receiver.firstName }}</option>
+            </select>
+          </div>
+          <h6 *ngIf="receiver.invalid && (receiver.dirty || receiver.touched)" class="error">
+            Input Invalid
+          </h6>
+
+          <mdb-icon fas icon="tag" class="prefix grey-text mr-2"></mdb-icon><span>Subject</span>
           <div class="md-form mb-5">
-            <mdb-icon fas icon="tag" class="prefix grey-text"></mdb-icon>
-            <label for="subject" class="ml-2">Subject</label>
-            <input type="text" id="subject" class="form-control" mdbInput mdbValidate formControlName="subject">
-            <h6 *ngIf="subject.invalid && (subject.dirty || subject.touched)" class="error">
-              Input Invalid
-            </h6>
+            <input type="text" id="subject" class="form-control" mdbInput formControlName="subject">
           </div>
+          <h6 *ngIf="subject.invalid && (subject.dirty || subject.touched)" class="error">
+            Input Invalid
+          </h6>
 
+          <mdb-icon fas icon="pencil-alt" class="prefix grey-text mr-2"></mdb-icon><span>Message</span>
           <div class="md-form">
-            <mdb-icon fas icon="pencil-alt" class="prefix grey-text"></mdb-icon>
-            <label for="message" class="ml-2">Your message</label>
-            <textarea type="text" id="message" class="form-control" rows="4" mdbInput mdbValidate formControlName="message"></textarea>
-            <h6 *ngIf="message.invalid && (message.dirty || message.touched)" class="error">
-              Input Invalid
-            </h6>
+            <textarea type="text" id="message" class="form-control" rows="4" mdbInput formControlName="message"></textarea>
           </div>
+          <h6 *ngIf="message.invalid && (message.dirty || message.touched)" class="error">
+            Input Invalid
+          </h6>
+
         </div>
 
         <div class="modal-footer d-flex justify-content-center">

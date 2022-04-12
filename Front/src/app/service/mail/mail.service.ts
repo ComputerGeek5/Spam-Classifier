@@ -25,7 +25,7 @@ export class MailService {
     ).pipe(map(
       (response) => {
         if (response.status === 200) {
-          return response.mails;
+          return response.data.mails;
         } else {
           throw new Error(response.message);
         }

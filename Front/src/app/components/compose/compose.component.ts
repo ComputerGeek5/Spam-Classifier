@@ -5,6 +5,7 @@ import {UserService} from '../../service/user/user.service';
 import {MailService} from '../../service/mail/mail.service';
 import {ComposeRequest} from '../../model/request/ComposeRequest';
 import {AuthService} from '../../security/auth/auth.service';
+import {NavigationExtras, Router} from '@angular/router';
 
 @Component({
   selector: 'app-compose',
@@ -35,14 +36,19 @@ export class ComposeComponent implements OnInit {
     return this.form.get("receiver");
   }
 
-  constructor(private userService: UserService, private mailService: MailService, private authService: AuthService) {}
+  constructor(private userService: UserService, private mailService: MailService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     try {
+      let authenticatedId = this.authService.getSessionUser().id;
       this.userService.findAll()
         .subscribe(
           (response) => {
-            this.users = response;
+            for (let user of response) {
+              if (user.id !== authenticatedId) {
+                this.users.push(user);
+              }
+            }
           }
         );
     } catch (error) {
@@ -62,7 +68,8 @@ export class ComposeComponent implements OnInit {
         .subscribe(
           (response) => {
             if (response.status === 200) {
-              this.success = response.message;
+              // const navigationExtras: NavigationExtras = {state: {data: response.message}};
+              // this.router.navigate(['inbox'], navigationExtras);
             } else {
               this.error = response.message;
             }

@@ -20,6 +20,7 @@ export class User {
   }
 
   fromResponse(response: LogInResponse) {
+    this.id = response.data.user.id;
     this.username = response.data.user.username;
     this.password = response.data.user.password;
     this.firstName = response.data.user.firstName;

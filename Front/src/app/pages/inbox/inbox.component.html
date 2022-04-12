@@ -7,4 +7,8 @@
   </div>
 
   <app-compose></app-compose>
+
+  <div *ngFor="let mail of inbox" class="card">
+    <div class="card-body">{{ mail.message }}</div>
+  </div>
 </div>
