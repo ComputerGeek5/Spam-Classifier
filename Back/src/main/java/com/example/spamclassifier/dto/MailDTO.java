@@ -19,4 +19,5 @@ public class MailDTO {
     private LocalDateTime createdAt;
     private UserDTO sender;
     private UserDTO receiver;
+    private Boolean spam = false;
 }

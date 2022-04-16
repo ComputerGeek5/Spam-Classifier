@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         if (response.status != 200) {
           this.error = response.message;
         } else {
-          const navigationExtras: NavigationExtras = {state: {data: response.message}};
+          const navigationExtras: NavigationExtras = {state: {success: response.message}};
           this.router.navigate(['inbox'], navigationExtras);
         }
       },

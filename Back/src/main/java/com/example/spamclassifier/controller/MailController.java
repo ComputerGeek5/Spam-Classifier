@@ -9,12 +9,8 @@ import com.example.spamclassifier.service.abst.MailService;
 import com.example.spamclassifier.util.annotation.BaseURL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -42,6 +38,50 @@ public class MailController {
 
             response = new BodyResponse(mailResponse)
                     .message("Mail sent successfully.")
+                    .status(HttpStatus.OK.value());
+        } catch (Exception e) {
+            log.error("", e);
+            response = new BodyResponse()
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Something went wrong, please try again !");
+        }
+
+        return response;
+    }
+
+    @PostMapping(value = "/mark/{id}", produces = "application/json")
+    @ResponseBody
+    public BodyResponse markAsSpam(@PathVariable(value = "id") Long id) {
+        BodyResponse response;
+
+        try {
+            MailDTO mail = mailService.find(id);
+            mail.setSpam(true);
+            mailService.save(mail);
+
+            response = new BodyResponse()
+                    .message("Mail marked as spam.")
+                    .status(HttpStatus.OK.value());
+        } catch (Exception e) {
+            log.error("", e);
+            response = new BodyResponse()
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Something went wrong, please try again !");
+        }
+
+        return response;
+    }
+
+    @PostMapping(value = "/delete/{id}", produces = "application/json")
+    @ResponseBody
+    public BodyResponse delete(@PathVariable(value = "id") Long id) {
+        BodyResponse response;
+
+        try {
+            mailService.delete(id);
+
+            response = new BodyResponse()
+                    .message("Mail deleted.")
                     .status(HttpStatus.OK.value());
         } catch (Exception e) {
             log.error("", e);

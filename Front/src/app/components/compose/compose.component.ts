@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../model/User';
 import {UserService} from '../../service/user/user.service';
@@ -13,10 +13,13 @@ import {NavigationExtras, Router} from '@angular/router';
   styleUrls: ['./compose.component.scss']
 })
 export class ComposeComponent implements OnInit {
-  success = '';
-  error = '';
-
   users: User[] = [];
+
+  @Output()
+  emitSuccessMessage: EventEmitter<string> = new EventEmitter<string>();
+
+  @Output()
+  emitErrorMessage: EventEmitter<string> = new EventEmitter<string>();
 
   form = new FormGroup({
     subject: new FormControl('', Validators.required),
@@ -52,7 +55,7 @@ export class ComposeComponent implements OnInit {
           }
         );
     } catch (error) {
-      this.error = error.message;
+      this.emitErrorMessage.emit(error.message);
     }
   }
 
@@ -68,15 +71,15 @@ export class ComposeComponent implements OnInit {
         .subscribe(
           (response) => {
             if (response.status === 200) {
-              // const navigationExtras: NavigationExtras = {state: {data: response.message}};
-              // this.router.navigate(['inbox'], navigationExtras);
+              this.emitSuccessMessage.emit(response.message);
             } else {
-              this.error = response.message;
+              this.emitErrorMessage.emit(response.message);
             }
           }
         )
     } catch (error) {
-      this.error = "Something went wrong, please try again later !";
+      let errorMessage: string = "Something went wrong, please try again later !";
+      this.emitErrorMessage.emit(errorMessage);
     }
   }
 }

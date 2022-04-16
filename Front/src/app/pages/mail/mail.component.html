@@ -1,0 +1,30 @@
+<div *ngIf="permissions.includes('VIEW')" class="content">
+  <div class="card w-100">
+    <div class="card-header text-center">
+      <h1>{{ mail.subject }}</h1>
+    </div>
+    <div class="card-body">
+      <p>{{ mail.message }}</p>
+    </div>
+    <div class="card-footer text-muted">
+      <h4 class="float-left">
+        <em>
+          From {{ mail.sender.username }} To {{ mail.receiver.username }}
+        </em>
+      </h4>
+      <h4 class="float-right">
+        <em>
+          {{ mail.createdAt }}
+        </em>
+      </h4>
+    </div>
+  </div>
+  <div class="row w-100">
+    <div *ngIf="permissions.includes('UPDATE')" class="col-6 text-center">
+      <button (click)="mark()" type="button" class="btn btn-primary btn-lg btn-block">Mark as spam</button>
+    </div>
+    <div *ngIf="permissions.includes('UPDATE')" class="col-6 text-center">
+      <button (click)="delete()" type="button" class="btn btn-danger btn-lg btn-block">Delete</button>
+    </div>
+  </div>
+</div>

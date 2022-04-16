@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InboxResponse {
+public class SentResponse {
 
     private List<MailResponse> mails;
 }

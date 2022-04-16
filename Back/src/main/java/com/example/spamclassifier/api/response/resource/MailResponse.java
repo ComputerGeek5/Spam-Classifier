@@ -2,10 +2,12 @@ package com.example.spamclassifier.api.response.resource;
 
 import com.example.spamclassifier.dto.MailDTO;
 import com.example.spamclassifier.dto.UserDTO;
+import com.example.spamclassifier.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -15,10 +17,12 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MailResponse {
 
+
     private Long id;
     private String subject;
     private String message;
-    private LocalDateTime createdAt;
+    private String createdAt;
+    private Boolean spam;
     private UserResponse sender;
     private UserResponse receiver;
 
@@ -28,7 +32,8 @@ public class MailResponse {
             this.id = mail.getId();
             this.subject = mail.getSubject();
             this.message = mail.getMessage();
-            this.createdAt = mail.getCreatedAt();
+            this.createdAt = TimeUtil.formatDateTime(mail.getCreatedAt());
+            this.spam = mail.getSpam();
 
             this.sender = UserResponse.builder()
                     .fromDTO(mail.getSender())

@@ -48,4 +48,12 @@ public class MailServiceImpl implements MailService {
                 .map(MailMapper.INSTANCE::toDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<MailDTO> findAllBySenderOrderByCreatedAtDesc(UserDTO sender) {
+        return mailRepository.findAllBySenderOrderByCreatedAtDesc(UserMapper.INSTANCE.toEntity(sender))
+                .stream()
+                .map(MailMapper.INSTANCE::toDTO)
+                .collect(Collectors.toList());
+    }
 }

@@ -10,5 +10,8 @@ import java.util.List;
 
 @Repository
 public interface MailRepository extends JpaRepository<Mail, Long> {
+
     List<Mail> findAllByReceiverOrderByCreatedAtDesc(User receiver);
+
+    List<Mail> findAllBySenderOrderByCreatedAtDesc(User sender);
 }

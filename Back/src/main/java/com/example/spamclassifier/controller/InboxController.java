@@ -7,6 +7,7 @@ import com.example.spamclassifier.api.response.InboxResponse;
 import com.example.spamclassifier.api.response.resource.MailResponse;
 import com.example.spamclassifier.dto.MailDTO;
 import com.example.spamclassifier.dto.UserDTO;
+import com.example.spamclassifier.model.Mail;
 import com.example.spamclassifier.service.abst.MailService;
 import com.example.spamclassifier.service.abst.UserService;
 import com.example.spamclassifier.util.annotation.BaseURL;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @BaseURL
@@ -38,9 +40,20 @@ public class InboxController {
 
         try {
             UserDTO receiver = userService.find(userId);
+
+            List<MailResponse> mailResponses = new ArrayList<>();
+
             List<MailDTO> mails = mailService.findAllByReceiverOrderByCreatedAtDesc(receiver);
+            for (MailDTO mail: mails) {
+                MailResponse mailResponse = MailResponse.builder()
+                        .fromDTO(mail)
+                        .build();
+
+                mailResponses.add(mailResponse);
+            }
+
             InboxResponse inboxResponse = InboxResponse.builder()
-                    .mails(mails)
+                    .mails(mailResponses)
                     .build();
 
             response = new BodyResponse(inboxResponse)

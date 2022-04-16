@@ -39,6 +39,9 @@ public class Mail {
     @JoinColumn(name="receiver_id", nullable=false)
     private User receiver;
 
+    @Column(name = "is_spam")
+    private Boolean spam;
+
     @PrePersist
     protected void prePersist() {
         if (createdAt == null) {

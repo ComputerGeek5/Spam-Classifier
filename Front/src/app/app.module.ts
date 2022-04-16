@@ -17,6 +17,7 @@ import {AuthLayoutModule} from './layouts/auth-layout/auth-layout.module';
 import {UserService} from './service/user/user.service';
 import {MailService} from './service/mail/mail.service';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MailComponent } from './pages/mail/mail.component';
 
 @NgModule({
     imports: [
@@ -31,7 +32,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
         MDBBootstrapModule.forRoot(),
         AuthLayoutModule
     ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, MailComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
