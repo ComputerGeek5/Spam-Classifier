@@ -51,16 +51,16 @@ public class MailController {
 
     @PostMapping(value = "/mark/{id}", produces = "application/json")
     @ResponseBody
-    public BodyResponse markAsSpam(@PathVariable(value = "id") Long id) {
+    public BodyResponse mark(@PathVariable(value = "id") Long id, @RequestParam(value = "spam", required = false) Boolean spam) {
         BodyResponse response;
 
         try {
             MailDTO mail = mailService.find(id);
-            mail.setSpam(true);
+            mail.setSpam(spam);
             mailService.save(mail);
 
             response = new BodyResponse()
-                    .message("Mail marked as spam.")
+                    .message("Mail changed successfully.")
                     .status(HttpStatus.OK.value());
         } catch (Exception e) {
             log.error("", e);

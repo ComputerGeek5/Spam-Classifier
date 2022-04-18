@@ -19,6 +19,18 @@ export const ROUTES: RouteInfo[] = [
     title: 'Sent',
     icon: 'icon-send',
     class: ''
+  },
+  {
+    path: '/read',
+    title: 'Read',
+    icon: 'icon-check-2',
+    class: ''
+  },
+  {
+    path: '/junk',
+    title: 'Junk',
+    icon: 'icon-trash-simple',
+    class: ''
   }
 ];
 

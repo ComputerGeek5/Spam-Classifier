@@ -10,9 +10,6 @@ import {MailService} from '../../service/mail/mail.service';
   styleUrls: ['./sent.component.scss']
 })
 export class SentComponent implements OnInit {
-  success = "";
-  error = "";
-
   sent: Mail[] = [];
 
   permission = Permission;
@@ -27,13 +24,5 @@ export class SentComponent implements OnInit {
         this.sent = result;
       }
     );
-  }
-
-  handleSuccessMessage(value) {
-    this.success = value;
-  }
-
-  handleErrorMessage(value) {
-    this.error = value;
   }
 }

@@ -20,11 +20,16 @@
     </div>
   </div>
   <div class="row w-100">
-    <div *ngIf="permissions.includes('UPDATE')" class="col-6 text-center">
-      <button (click)="mark()" type="button" class="btn btn-primary btn-lg btn-block">Mark as spam</button>
+    <div class="col-4 text-center">
+      <button *ngIf="permissions.includes('MARK')" (click)="markAsRead()" type="button" class="btn btn-success btn-lg btn-block">Mark as read</button>
+      <button *ngIf="permissions.includes('UNREAD')" (click)="unMarkAsRead()" type="button" class="btn btn-success btn-lg btn-block">Unmark as read</button>
+      <button *ngIf="permissions.includes('UNSPAM')" (click)="unMarkAsSpam()" type="button" class="btn btn-success btn-lg btn-block">Unmark as spam</button>
     </div>
-    <div *ngIf="permissions.includes('UPDATE')" class="col-6 text-center">
-      <button (click)="delete()" type="button" class="btn btn-danger btn-lg btn-block">Delete</button>
+    <div class="col-4 text-center">
+      <button *ngIf="permissions.includes('MARK')" (click)="markAsSpam()" type="button" class="btn btn-primary btn-lg btn-block">Mark as spam</button>
+    </div>
+    <div class="col-4 text-center">
+      <button *ngIf="permissions.includes('DELETE')" (click)="delete()" type="button" class="btn btn-danger btn-lg btn-block">Delete</button>
     </div>
   </div>
 </div>

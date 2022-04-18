@@ -11,7 +11,11 @@ import java.util.List;
 @Repository
 public interface MailRepository extends JpaRepository<Mail, Long> {
 
-    List<Mail> findAllByReceiverOrderByCreatedAtDesc(User receiver);
+    List<Mail> findAllByReceiverAndSpamIsNullOrderByCreatedAtDesc(User receiver);
+
+    List<Mail> findAllByReceiverAndSpamIsTrueOrderByCreatedAtDesc(User receiver);
+
+    List<Mail> findAllByReceiverAndSpamIsFalseOrderByCreatedAtDesc(User receiver);
 
     List<Mail> findAllBySenderOrderByCreatedAtDesc(User sender);
 }

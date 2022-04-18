@@ -18,6 +18,9 @@ import {UserService} from './service/user/user.service';
 import {MailService} from './service/mail/mail.service';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MailComponent } from './pages/mail/mail.component';
+import {SpamDetectorService} from './service/ml/spam-detector.service';
+import { JunkComponent } from './pages/junk/junk.component';
+import { ReadComponent } from './pages/read/read.component';
 
 @NgModule({
     imports: [
@@ -32,7 +35,7 @@ import { MailComponent } from './pages/mail/mail.component';
         MDBBootstrapModule.forRoot(),
         AuthLayoutModule
     ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, MailComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, MailComponent, JunkComponent, ReadComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -40,7 +43,8 @@ import { MailComponent } from './pages/mail/mail.component';
       multi: true
     },
     UserService,
-    MailService
+    MailService,
+    SpamDetectorService
   ],
   bootstrap: [AppComponent]
 })

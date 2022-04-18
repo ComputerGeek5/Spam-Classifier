@@ -5,6 +5,7 @@ export class Mail {
   subject: string;
   message: string;
   createdAt: string;
+  spam: boolean;
   sender: User;
   receiver: User;
 }

@@ -40,7 +40,7 @@ public class SentController {
             List<MailResponse> mailResponses = new ArrayList<>();
 
             UserDTO sender = userService.find(id);
-            List<MailDTO> mails = mailService.findAllBySenderOrderByCreatedAtDesc(sender);
+            List<MailDTO> mails = mailService.findSent(sender);
             for (MailDTO mail: mails) {
                 MailResponse mailResponse = MailResponse.builder()
                         .fromDTO(mail)

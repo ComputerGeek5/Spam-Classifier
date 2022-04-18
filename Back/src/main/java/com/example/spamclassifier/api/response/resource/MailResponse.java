@@ -1,20 +1,14 @@
 package com.example.spamclassifier.api.response.resource;
 
 import com.example.spamclassifier.dto.MailDTO;
-import com.example.spamclassifier.dto.UserDTO;
 import com.example.spamclassifier.util.TimeUtil;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MailResponse {
 
 

@@ -8,7 +8,11 @@ import java.util.List;
 
 public interface MailService extends CRUDService<MailDTO> {
 
-    List<MailDTO> findAllByReceiverOrderByCreatedAtDesc(UserDTO receiver);
+    List<MailDTO> findInbox(UserDTO receiver);
 
-    List<MailDTO> findAllBySenderOrderByCreatedAtDesc(UserDTO sender);
+    List<MailDTO> findJunk(UserDTO receiver);
+
+    List<MailDTO> findRead(UserDTO receiver);
+
+    List<MailDTO> findSent(UserDTO sender);
 }

@@ -1,13 +1,10 @@
 package com.example.spamclassifier.controller;
 
-import com.example.spamclassifier.api.mapper.ComposeRequestMapper;
-import com.example.spamclassifier.api.request.ComposeRequest;
 import com.example.spamclassifier.api.response.BodyResponse;
 import com.example.spamclassifier.api.response.InboxResponse;
 import com.example.spamclassifier.api.response.resource.MailResponse;
 import com.example.spamclassifier.dto.MailDTO;
 import com.example.spamclassifier.dto.UserDTO;
-import com.example.spamclassifier.model.Mail;
 import com.example.spamclassifier.service.abst.MailService;
 import com.example.spamclassifier.service.abst.UserService;
 import com.example.spamclassifier.util.annotation.BaseURL;
@@ -43,7 +40,7 @@ public class InboxController {
 
             List<MailResponse> mailResponses = new ArrayList<>();
 
-            List<MailDTO> mails = mailService.findAllByReceiverOrderByCreatedAtDesc(receiver);
+            List<MailDTO> mails = mailService.findInbox(receiver);
             for (MailDTO mail: mails) {
                 MailResponse mailResponse = MailResponse.builder()
                         .fromDTO(mail)

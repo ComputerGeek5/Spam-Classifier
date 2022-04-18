@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Locale;
 
 @Getter
 @Setter
@@ -19,24 +18,26 @@ import java.util.Locale;
 public class Mail {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "subject")
     private String subject;
 
-    @Column(name = "message", nullable = false)
+    @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="sender_id", nullable=false)
+    @JoinColumn(name = "sender_id")
+    @NonNull
     private User sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="receiver_id", nullable=false)
+    @JoinColumn(name = "receiver_id")
+    @NonNull
     private User receiver;
 
     @Column(name = "is_spam")

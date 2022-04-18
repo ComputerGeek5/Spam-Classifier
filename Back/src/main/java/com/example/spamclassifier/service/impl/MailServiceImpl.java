@@ -42,16 +42,32 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public List<MailDTO> findAllByReceiverOrderByCreatedAtDesc(UserDTO receiver) {
-        return mailRepository.findAllByReceiverOrderByCreatedAtDesc(UserMapper.INSTANCE.toEntity(receiver))
+    public List<MailDTO> findInbox(UserDTO receiver) {
+        return mailRepository.findAllByReceiverAndSpamIsNullOrderByCreatedAtDesc(UserMapper.INSTANCE.toEntity(receiver))
                 .stream()
                 .map(MailMapper.INSTANCE::toDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<MailDTO> findAllBySenderOrderByCreatedAtDesc(UserDTO sender) {
+    public List<MailDTO> findSent(UserDTO sender) {
         return mailRepository.findAllBySenderOrderByCreatedAtDesc(UserMapper.INSTANCE.toEntity(sender))
+                .stream()
+                .map(MailMapper.INSTANCE::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MailDTO> findJunk(UserDTO receiver) {
+        return mailRepository.findAllByReceiverAndSpamIsTrueOrderByCreatedAtDesc(UserMapper.INSTANCE.toEntity(receiver))
+                .stream()
+                .map(MailMapper.INSTANCE::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MailDTO> findRead(UserDTO receiver) {
+        return mailRepository.findAllByReceiverAndSpamIsFalseOrderByCreatedAtDesc(UserMapper.INSTANCE.toEntity(receiver))
                 .stream()
                 .map(MailMapper.INSTANCE::toDTO)
                 .collect(Collectors.toList());

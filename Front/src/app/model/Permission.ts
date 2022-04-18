@@ -1,4 +1,7 @@
 export enum Permission {
   VIEW = 'VIEW',
-  UPDATE = 'UPDATE'
+  MARK = 'MARK',
+  UNREAD = 'UNREAD',
+  UNSPAM = 'UNSPAM',
+  DELETE = 'DELETE'
 }
