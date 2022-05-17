@@ -9,8 +9,15 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+# connection = mysql.connector.connect(
+#     host = "localhost",
+#     user = "root",
+#     password = "",
+#     database='spam_db',
+# )
+
 connection = mysql.connector.connect(
-    host = "localhost",
+    host = "spam-classifier-db",
     user = "root",
     password = "",
     database='spam_db',
